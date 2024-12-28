@@ -1,0 +1,22 @@
+<header class="d-flex align-tems-center py-2 border-bottom">
+    <a href="/" class="pe-3">
+        <img src="/assets/images/logo.png" alt="logo" class="logo"/>    
+    </a>
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" [class.active]="currentPage() === homeRoute" routerLink="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" [class.active]="currentPage() === sportsRoute" routerLink="/sports">Sports registration</a></li>
+        <li class="nav-item"><a class="nav-link" [class.active]="currentPage() === partyRoute" routerLink="/party">Party tickets</a></li>
+        <li class="nav-item"><a class="nav-link link-secondary">Transactions</a></li>
+        <li class="nav-item"><a class="nav-link link-secondary">Achievements</a></li>
+    </ul>
+    <div class="dropdown ms-auto">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-4 pe-1"></i>
+        </a>
+        <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">Account</a></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    </div>    
+</header>
+
