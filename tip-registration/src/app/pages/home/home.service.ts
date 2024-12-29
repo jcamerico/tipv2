@@ -9,7 +9,7 @@ export class HomeService {
 
   // TODO: Replace this with a call to a backend service
   private readonly volleyInfo = {
-    sports: ['Volleyball', 'Beach Volleyball'],
+    sports: ['Volleyball', 'Beach Volleyball', 'E-sports'],
     partyTickets: 2
   };
 
@@ -36,7 +36,7 @@ export class HomeService {
   constructor() { }
 
   getHomeContent(): Observable<HomeInfo> {
-    return of(this.notRegistered);
+    return of(this.volleyInfo);
   }
 
   getAlerts(): Observable<Alert[]> {
