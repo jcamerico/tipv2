@@ -1,4 +1,6 @@
-export type SportSummary = {
+export type RegistrationSummary = {
+    id: number;
+    status: RegistrationStatus;
     sportInfo: SportInfo;
     level: string;
     teamInfo?: {
@@ -9,6 +11,14 @@ export type SportSummary = {
     } | undefined;
     events?: string[];
 
+}
+
+export enum RegistrationStatus {
+    REGISTERED = 'REGISTERED',
+    PENDING_APPROVAL = 'PENDING APPROVAL',
+    AWAITING_PAYMENT = 'AWAITING PAYMENT',
+    REFUSED = 'REFUSED',
+    CANCELLED = 'CANCELLED',
 }
 
 export type SportInfo = {
@@ -24,6 +34,7 @@ export enum SportType {
     BASKETBALL = 'Basketball',
     BASEBALL = 'Baseball',
     ESPORTS = 'E-sports',
+    BADMINTON = 'Badminton',
 }
 
 export type CompetitionDay = {

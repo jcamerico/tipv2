@@ -1,0 +1,67 @@
+<div class="card m-2" [class.bg-warning]="sport().status === 'AWAITING PAYMENT'" [class.bg-info]="sport().status === 'PENDING APPROVAL'">
+    <div class="card-header d-flex align-items-center">
+        <span class="fs-5">{{ sport().sportInfo.type }}</span>
+        @if (sport().teamInfo; as teamInfo) {
+            <span class="ms-2 badge" 
+            [class.text-bg-success]="teamInfo.complete"
+            [class.text-bg-danger]="!teamInfo.complete"
+            >
+                {{ teamInfo.complete ? 'Team complete' : 'Team incomplete' }}
+            </span>
+            @if (teamInfo.name) {
+                <span class="badge text-bg-info ms-1">{{ teamInfo.name }} (Code: {{ teamInfo.code }})</span>
+            }
+        }
+        @if (sport().level) {
+            <span class="badge text-bg-primary ms-1">Level: {{ sport().level }}</span>
+        }            
+    </div>
+    <div class="card-body d-flex flex-column">
+        <!-- Description -->
+        <small class="card-subtitle text-muted mb-2">
+            Organized by {{ sport().sportInfo.organizers.join(', ') }} ({{ sport().sportInfo.contacts.join(', ') }})
+            <br>
+            @for (date of sport().sportInfo.dates; track date) {
+                {{ date.startTime | date:'short' }} - {{ date.endTime | date:'short' }}
+                <br>
+            }
+        </small>    
+        <!-- Team -->            
+        @if (sport().teamInfo; as teamInfo) {
+            Team currently composed by:
+            <ul>
+                @for (member of teamInfo.members; track member) {
+                    <li>{{ member.lastName | uppercase }} {{ member.firstName }} {{member.teamCaptain ? '(C)' : '' }}</li>
+                }
+            </ul>
+        }
+        <!-- Events -->
+        @if (sport().events) {
+            You are registered to the following events:
+            <ul>
+                @for (event of sport().events; track event) {
+                    <li>{{ event }}</li>
+                }
+            </ul>
+        }
+
+        @if(sport().status !== 'CANCELLED' && sport().status !== 'REFUSED') {
+            <div class="d-flex flex-row-reverse mt-auto">
+
+                @switch (sport().status) {
+                    @case ('REGISTERED') {
+                        <a type="button" class="btn btn-danger">Unregister</a>
+                    }
+                    @case ('PENDING APPROVAL') {
+                        <a type="button" class="btn btn-secondary">Cancel</a>
+                    }
+                    @case ('AWAITING PAYMENT') {
+                        <a type="button" class="btn btn-primary">Proceed to payment</a>                
+                        <a type="button" class="btn btn-secondary me-2">Cancel</a>
+                    }
+                }
+                <a type="button" class="btn btn-light me-2">Modify</a>
+            </div>
+        }
+    </div>    
+</div>

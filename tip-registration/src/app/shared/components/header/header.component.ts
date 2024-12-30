@@ -13,7 +13,7 @@ import { filter } from 'rxjs';
 export class HeaderComponent implements OnInit {
 
   readonly homeRoute = 'home';
-  readonly sportsRoute = 'sports';
+  readonly registrationsRoute = 'registrations';
   readonly partyRoute = 'party';
 
   private readonly keycloak = inject(Keycloak);
@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit {
     this.router.events.pipe(filter(event => event.type === EventType.NavigationEnd)).subscribe(event => {
       if (event.url.endsWith(this.homeRoute)) {
         this.currentPage.set(this.homeRoute);
-      } else if (event.url.endsWith(this.sportsRoute)) {
-        this.currentPage.set(this.sportsRoute);
+      } else if (event.url.endsWith(this.registrationsRoute)) {
+        this.currentPage.set(this.registrationsRoute);
       } else if (event.url.endsWith(this.partyRoute)) {
         this.currentPage.set(this.partyRoute);
       }
