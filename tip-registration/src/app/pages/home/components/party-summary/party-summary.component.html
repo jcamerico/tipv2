@@ -1,0 +1,18 @@
+<div class="card text-bg-secondary m-3">
+    <div class="card-header">
+        <h3>Party</h3>
+    </div>
+    <div class="card-body d-flex flex-column">
+        @if (partyTickets() > 0) {                    
+            <p class="card-text">You have purchased {{ partyTickets() }} party tickets.</p>
+            <div class="d-flex flex-row-reverse mt-auto">
+                <button routerLink="/party" class="btn btn-dark" type="button">More info</button>
+            </div>
+        } @else {
+            <p class="card-text">You have not purchased any party tickets.</p>
+            <div class="d-flex flex-row-reverse mt-auto">
+                <button routerLink="/party" class="btn btn-dark" type="button">Buy tickets</button>
+            </div>
+        }        
+    </div>
+</div>

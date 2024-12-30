@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RegistrationSummary } from '../../sports.model';
 import { CommonModule } from '@angular/common';
 
@@ -11,5 +11,27 @@ import { CommonModule } from '@angular/common';
 export class SportCardComponent {
 
   sport = input.required<RegistrationSummary>();
+  unregister = output<void>();
+  payment = output<void>();
+  cancellation = output<void>();
+  modification = output<void>();
+
+
+  startUnregistration(): void {
+    this.unregister.emit();
+  }
+
+  startPayment(): void {
+    this.payment.emit();
+  }
+
+  cancel(): void {
+    this.cancellation.emit();
+  }
+
+  modify(): void {
+    this.modification.emit();
+  }
+
 
 }

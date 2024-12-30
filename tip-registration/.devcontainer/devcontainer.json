@@ -20,7 +20,8 @@
 				"ms-azuretools.vscode-docker",
 				"Angular.ng-template",
 				"dbaeumer.vscode-eslint",
-				"GitHub.copilot"
+				"GitHub.copilot",
+				"lucono.karma-test-explorer"
 			]
 		}
 	}

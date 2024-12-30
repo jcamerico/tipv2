@@ -50,17 +50,17 @@
 
                 @switch (sport().status) {
                     @case ('REGISTERED') {
-                        <a type="button" class="btn btn-danger">Unregister</a>
+                        <a type="button" class="btn btn-danger" (click)="startUnregistration()">Unregister</a>
                     }
                     @case ('PENDING APPROVAL') {
-                        <a type="button" class="btn btn-secondary">Cancel</a>
+                        <a type="button" class="btn btn-secondary" (click)="cancel()">Cancel</a>
                     }
                     @case ('AWAITING PAYMENT') {
-                        <a type="button" class="btn btn-primary">Proceed to payment</a>                
-                        <a type="button" class="btn btn-secondary me-2">Cancel</a>
+                        <a type="button" class="btn btn-primary" (click)="startPayment()">Proceed to payment</a>                
+                        <a type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</a>
                     }
                 }
-                <a type="button" class="btn btn-light me-2">Modify</a>
+                <a type="button" class="btn btn-light me-2" (click)="modify()">Modify</a>
             </div>
         }
     </div>    
