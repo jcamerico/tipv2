@@ -40,8 +40,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: jcamerico/tipv2
-          directory: ./tip-registration/coverage
-          files: ./tip-registration/coverage/lcov.info
+          files: tip-registration/coverage/lcov.info
           fail_ci_if_error: true
           verbose: true
 
