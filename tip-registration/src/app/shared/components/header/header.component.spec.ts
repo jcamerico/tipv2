@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import Keycloak from 'keycloak-js';
+import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
 import { provideRouter } from '@angular/router';
 
@@ -21,7 +23,9 @@ describe('HeaderComponent', () => {
       ]
     })
       .compileComponents();
+
     keyCloak.loadUserProfile.and.returnValue(Promise.resolve({ firstName: 'John', lastName: 'Doe' }));
+
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -29,5 +33,26 @@ describe('HeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.authenticated()).toBeTrue();
   });
+
+  it('should display user first and last name', () => {
+    fixture.detectChanges();
+
+    const userGreetings = fixture.debugElement.query(By.css('#userGreetings'));
+    expect(userGreetings.nativeElement.innerHTML).toContain('Welcome John DOE');
+  });
+
+  it('should logout when user clicks on logout', fakeAsync(() => {
+    keyCloak.logout.and.returnValue(Promise.resolve());
+    fixture.detectChanges();
+    tick();
+
+    fixture.debugElement.query(By.css('#logoutButton')).nativeElement.click();
+    tick();
+
+    expect(keyCloak.logout).toHaveBeenCalled();
+    expect(component.authenticated()).toBeFalse();
+  }));
+
 });

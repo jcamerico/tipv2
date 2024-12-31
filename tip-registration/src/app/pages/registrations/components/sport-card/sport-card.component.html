@@ -28,12 +28,14 @@
         </small>    
         <!-- Team -->            
         @if (sport().teamInfo; as teamInfo) {
-            Team currently composed by:
-            <ul>
-                @for (member of teamInfo.members; track member) {
-                    <li>{{ member.lastName | uppercase }} {{ member.firstName }} {{member.teamCaptain ? '(C)' : '' }}</li>
-                }
-            </ul>
+            <div class="text-body">
+                Team currently composed by:
+                <ul>
+                    @for (member of teamInfo.members; track member) {
+                        <li>{{ member.lastName | uppercase }} {{ member.firstName }} {{member.teamCaptain ? '(C)' : '' }}</li>
+                    }
+                </ul>
+            </div>
         }
         <!-- Events -->
         @if (sport().events) {

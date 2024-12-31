@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SportCardComponent } from './sport-card.component';
 import { RegistrationStatus, SportType } from '../../sports.model';
 import { ComponentRef } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('SportCardComponent', () => {
   let component: SportCardComponent;
@@ -53,4 +54,60 @@ describe('SportCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display complete team information', () => {
+    componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
+    fixture.detectChanges();
+
+    const teamCompletion = fixture.debugElement.query(By.css('.text-bg-success'));
+    expect(teamCompletion.nativeElement.innerHTML).toContain('Team complete');
+
+    const teamNameAndCode = fixture.debugElement.query(By.css('.text-bg-info'));
+    expect(teamNameAndCode.nativeElement.innerHTML).toContain(`${CONFIRMED_VOLLEY_REGISTRATION.teamInfo.name} (Code: ${CONFIRMED_VOLLEY_REGISTRATION.teamInfo.code})`);
+
+    const teamLevel = fixture.debugElement.query(By.css('.text-bg-primary'));
+    expect(teamLevel.nativeElement.innerHTML).toContain(`Level: ${CONFIRMED_VOLLEY_REGISTRATION.level}`);
+
+    const teamComposition = fixture.debugElement.query(By.css('.text-body'));
+    expect(teamComposition.nativeElement.innerHTML).toContain('Team currently composed by:');
+    CONFIRMED_VOLLEY_REGISTRATION.teamInfo.members.forEach(member => expect(teamComposition.nativeElement.innerHTML).toContain(`${member.lastName.toUpperCase()} ${member.firstName}`));
+  });
+
+  it('should display correct buttons for confirmed registration', () => {
+    componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
+    fixture.detectChanges();
+
+    const actionButtons = fixture.debugElement.queryAll(By.css('.btn'));
+    expect(actionButtons.length).toBe(2);
+    const actions = actionButtons.map(button => button.nativeElement.innerHTML);
+    expect(actions.find(action => action === 'Modify')).toBeTruthy();
+    expect(actions.find(action => action === 'Unregister')).toBeTruthy();
+  });
+
+  it('should emit event when user clicks on modify', (done: DoneFn) => {
+    component.modification.subscribe(() => {
+      done();
+    });
+
+    componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
+    fixture.detectChanges();
+
+    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-light'));
+    modifyButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+  });
+
+  it('should emit event when user clicks on unregister', (done: DoneFn) => {
+    component.unregister.subscribe(() => {
+      done();
+    });
+
+    componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
+    fixture.detectChanges();
+
+    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-danger'));
+    modifyButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+  });
+
 });
