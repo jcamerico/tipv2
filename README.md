@@ -1,6 +1,6 @@
 # TIP v2
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jcamerico/tipv2/frontend.yml?branch=main)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jcamerico/tipv2/frontend.yml?branch=main) [![codecov](https://codecov.io/gh/jcamerico/tipv2/graph/badge.svg?token=FAK02FKYS2)](https://codecov.io/gh/jcamerico/tipv2)
 
 ## Contributing
 A dev container is configured with everything needed to run the application locally. You will have in the container:
