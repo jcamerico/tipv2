@@ -1,40 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { EventType, Router, RouterModule } from '@angular/router';
 import Keycloak from 'keycloak-js';
-import { filter } from 'rxjs';
+import { SideMenuComponent } from "./side-menu/side-menu.component";
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, SideMenuComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-
-  readonly homeRoute = 'home';
-  readonly registrationsRoute = 'registrations';
-  readonly partyRoute = 'party';
 
   private readonly keycloak = inject(Keycloak);
 
   firstName = signal('');
   lastName = signal('');
   authenticated = signal(false);
-  currentPage = signal(this.homeRoute);
-
-  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.router.events.pipe(filter(event => event.type === EventType.NavigationEnd)).subscribe(event => {
-      if (event.url.endsWith(this.homeRoute)) {
-        this.currentPage.set(this.homeRoute);
-      } else if (event.url.endsWith(this.registrationsRoute)) {
-        this.currentPage.set(this.registrationsRoute);
-      } else if (event.url.endsWith(this.partyRoute)) {
-        this.currentPage.set(this.partyRoute);
-      }
-    });
     this.keycloak.loadUserProfile().then(profile => {
       this.firstName.set(profile.firstName ?? '');
       this.lastName.set(profile.lastName ?? '');
@@ -49,6 +32,7 @@ export class HeaderComponent implements OnInit {
       this.authenticated.set(false);
     });
   }
+
   goToAccountManagement(): void {
     window.location.href = this.keycloak.createAccountUrl();
   }
