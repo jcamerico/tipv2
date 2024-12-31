@@ -34,6 +34,7 @@ jobs:
           npm ci
           npm run build --if-present
           npm test
+          cat coverage/lcov.info
       
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
