@@ -53,9 +53,31 @@ Sports can be _open_, _open with invitation code_, _open with manual approval (t
 ## Lifecycle
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+stateDiagram-v2
+    [*] --> AWAITING_PAYMENT: Still room for competitors or valid code used
+    AWAITING_PAYMENT --> CANCELLED_BY_USER: User cancels before payment
+    [*] --> PENDING_APPROVAL
+    PENDING_APPROVAL --> CANCELLED_BY_USER: User cancels before payment
+    AWAITING_PAYMENT --> REFUSED: Registration refused by sport admin
+    PENDING_APPROVAL --> REFUSED: Registration refused by sport admin
+    PENDING_APPROVAL --> AWAITING_PAYMENT: Registration approved by sport admin
+    AWAITING_PAYMENT --> REGISTERED: Payment done
+    REGISTERED --> [*]
+    REGISTERED --> REIMBURSEMENT: User requests reimbursement
+    REIMBURSEMENT --> REGISTERED: Reimbursement request refused
+    REIMBURSEMENT --> CANCELLED_WITH_REIMBURSEMENT: Reimbursement request complete
+    CANCELLED_BY_USER --> [*]
+    [*] --> REFUSED: Max competitors limit reached
+    REFUSED --> [*]
+    CANCELLED_WITH_REIMBURSEMENT --> [*]
+
+    state REIMBURSEMENT {
+        [*] --> OPEN
+        OPEN --> APPROVED_BY_SPORT
+        OPEN --> [*]: Refused by sport admins
+        APPROVED_BY_SPORT --> AWAITING_REIMBURSEMENT
+        APPROVED_BY_SPORT --> [*]: Refused by staff
+        AWAITING_REIMBURSEMENT --> REIMBURSED
+        REIMBURSED --> [*]
+    }
 ```
