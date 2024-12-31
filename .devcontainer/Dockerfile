@@ -18,6 +18,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
       && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 RUN apt-get update && apt-get -y install google-chrome-stable
 
+# Install Angular CLI
+RUN su node -c "npm install -g @angular/cli npm"
 
 # Go! (And keep going.)
 CMD ["tail", "--follow", "/dev/null"]
