@@ -16,11 +16,13 @@ export class HeaderComponent implements OnInit {
   firstName = signal('');
   lastName = signal('');
   authenticated = signal(false);
+  accountUrl = signal('');
 
   ngOnInit(): void {
     this.keycloak.loadUserProfile().then(profile => {
       this.firstName.set(profile.firstName ?? '');
       this.lastName.set(profile.lastName ?? '');
+      this.accountUrl.set(this.keycloak.createAccountUrl());
       this.authenticated.set(true);
     });
   }
@@ -32,10 +34,5 @@ export class HeaderComponent implements OnInit {
       this.authenticated.set(false);
     });
   }
-
-  goToAccountManagement(): void {
-    window.location.href = this.keycloak.createAccountUrl();
-  }
-
 
 }
