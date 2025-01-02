@@ -8,7 +8,6 @@ const isAccessAllowed = async (
     authData: AuthGuardData
 ): Promise<boolean | UrlTree> => {
     const { authenticated, grantedRoles } = authData;
-    console.log('authenticated', authenticated);
     if (authenticated) {
         return true;
     }

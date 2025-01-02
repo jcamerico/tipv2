@@ -1,8 +1,9 @@
 export type RegistrationSummary = {
-    id: number;
+    uid: string;
     status: RegistrationStatus;
     sportInfo: SportInfo;
     level: string;
+    unregistration: boolean;
     teamInfo?: {
         complete: boolean;
         name: string | null;
@@ -18,7 +19,8 @@ export enum RegistrationStatus {
     PENDING_APPROVAL = 'PENDING APPROVAL',
     AWAITING_PAYMENT = 'AWAITING PAYMENT',
     REFUSED = 'REFUSED',
-    CANCELLED = 'CANCELLED',
+    CANCELLED_BY_USER = 'CANCELLED BY USER',
+    CANCELLED_WITH_REIMBURSEMENT = 'CANCELLED WITH REIMBURSEMENT'
 }
 
 export type SportInfo = {
@@ -46,4 +48,27 @@ export type TeamMember = {
     firstName: string;
     lastName: string;
     teamCaptain: boolean;
+}
+
+export type SportReimbursementSummary = {
+    uid: string,
+    sportUid: string,
+    sport: SportType;
+    type: ReimbursementType;
+    status: ReimbursementStatus;
+    creationDate: Date;
+    lastUpdateDate: Date;
+    reason: string;
+}
+
+export enum ReimbursementStatus {
+    OPEN = 'OPEN',
+    APPROVED_BY_SPORT = 'APPROVED BY SPORT',
+    AWAITING_REIMBURSEMENT = 'AWAITING REIMBURSEMENT',
+    REIMBURSED = 'REIMBURSED',
+    REFUSED = 'REFUSED'
+}
+
+export enum ReimbursementType {
+    TOTAL, PARTIAL
 }
