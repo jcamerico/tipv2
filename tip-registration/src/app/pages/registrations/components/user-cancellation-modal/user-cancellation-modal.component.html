@@ -1,0 +1,16 @@
+@if (sportRegistration()) {
+
+    <div class="modal-header">
+        <h4 class="modal-title">Registration cancellation</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="dismissed.emit()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to cancel your <strong>{{ sportRegistration().sportInfo.type }}</strong> registration?</p>
+        <p>In case you want to register again to this sport later, you will have to start over.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="dismissed.emit()">Close</button>
+        <button type="button" class="btn btn-outline-primary" (click)="confirmed.emit()">Cancel my registration</button>
+    </div>
+
+}

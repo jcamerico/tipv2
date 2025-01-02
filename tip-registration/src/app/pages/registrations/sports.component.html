@@ -6,55 +6,67 @@
     <p>Registrations below have been approved by the sport administrators and paid. Unregistration must be approved by the TIP administration team.</p>
 
     <div class="d-flex flex-wrap">
-        @for (sport of registeredSports; track sport.sportInfo.type) {
-            <app-sport-card [sport]="sport"></app-sport-card>
+        @for (sport of registeredSports(); track sport.uid) {
+            <app-sport-card [sport]="sport" (unregister)="triggerUnregistration(sport.uid)" (modification)="modifyRegistration(sport.uid)"></app-sport-card>
         } @empty {
             <p>You are not registered to any sports.</p>
         }
     </div>
 
-    @if (pendingApproval.length > 0) {
+    @if (pendingApproval().length > 0) {
         <h3 class="my-3">
             <i class="bi bi-clock me-2"></i>
             Registrations pending approval
         </h3>
         <p>Registrations below have not yet been approved by the sport admninistrators. No action is required from you for now; once it is approved, you will be able to do the payment. </p>
         <div class="d-flex flex-wrap">
-            @for (sport of pendingApproval; track sport.sportInfo.type) {
-                <app-sport-card [sport]="sport"></app-sport-card>
+            @for (sport of pendingApproval(); track sport.uid) {
+                <app-sport-card [sport]="sport" (modification)="modifyRegistration(sport.uid)" (cancellation)="cancelRegistration(sport.uid)"></app-sport-card>
             }
         </div>
     }
 
-    @if (awaitingPayment.length > 0) {
+    @if (awaitingPayment().length > 0) {
         <h3 class="my-3">
             <i class="bi bi-wallet2 me-2"></i>
             Registrations awaiting payment
         </h3>
         <p>Registrations below have been approved by the sport admninistrators and are waiting for your payment.</p>
         <div class="d-flex flex-wrap">
-            @for (sport of awaitingPayment; track sport.sportInfo.type) {
-                <app-sport-card [sport]="sport"></app-sport-card>
+            @for (sport of awaitingPayment(); track sport.uid) {
+                <app-sport-card [sport]="sport" (modification)="modifyRegistration(sport.uid)" (cancellation)="cancelRegistration(sport.uid)" (payment)="triggerPayment(sport.uid)"></app-sport-card>
             }
         </div>
     }
 
-    @if (canceledOrRefused.length > 0) {
+    @if (canceledOrRefused().length > 0) {
         <h3 class="my-3">
             <i class="bi bi-ban me-2"></i>
             Cancelled registrations
         </h3>
         <p>Registrations below have been cancelled by either you or the sport administrators.</p>
         <div class="d-flex flex-wrap">
-            @for (sport of canceledOrRefused; track sport.sportInfo.type) {
+            @for (sport of canceledOrRefused(); track sport.uid) {
                 <app-sport-card [sport]="sport"></app-sport-card>
             }
         </div>
     }
 
+    @if (reimbursements().length > 0) {
+        <h3 class="my-3">
+            <i class="bi bi-receipt me-2"></i>
+            Reimbursement requests
+        </h3>
+        <p>Reimbursement requests below have been submitted and are being processed by the sport administrators and registration team.</p>
+        <div class="d-flex flex-wrap">
+            @for (reimbursement of reimbursements(); track reimbursement.uid) {
+                <app-reimbursement-card [reimbursement]="reimbursement"></app-reimbursement-card>
+            }
+        </div>
+    }
 
     <div class="text-center my-3">
-        <button type="button" (click)="addSport()" class="btn btn-primary btn-lg">Register new sport</button>
+        <button type="button" (click)="addSport()" class="btn btn-outline-primary btn-lg">Register new sport</button>
     </div>
 
 </div>

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SportCardComponent } from './sport-card.component';
-import { RegistrationStatus, SportType } from '../../sports.model';
+import { RegistrationStatus, RegistrationSummary, SportType } from '../../sports.model';
 import { ComponentRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -10,8 +10,9 @@ describe('SportCardComponent', () => {
   let componentRef: ComponentRef<SportCardComponent>;
   let fixture: ComponentFixture<SportCardComponent>;
 
-  const CONFIRMED_VOLLEY_REGISTRATION = {
-    id: 1,
+  const CONFIRMED_VOLLEY_REGISTRATION: RegistrationSummary = {
+    uid: '1',
+    unregistration: false,
     status: RegistrationStatus.REGISTERED,
     sportInfo: {
       type: SportType.VOLLEY_243,
@@ -63,14 +64,14 @@ describe('SportCardComponent', () => {
     expect(teamCompletion.nativeElement.innerHTML).toContain('Team complete');
 
     const teamNameAndCode = fixture.debugElement.query(By.css('.text-bg-info'));
-    expect(teamNameAndCode.nativeElement.innerHTML).toContain(`${CONFIRMED_VOLLEY_REGISTRATION.teamInfo.name} (Code: ${CONFIRMED_VOLLEY_REGISTRATION.teamInfo.code})`);
+    expect(teamNameAndCode.nativeElement.innerHTML).toContain(`${CONFIRMED_VOLLEY_REGISTRATION.teamInfo?.name} (Code: ${CONFIRMED_VOLLEY_REGISTRATION.teamInfo?.code})`);
 
     const teamLevel = fixture.debugElement.query(By.css('.text-bg-primary'));
     expect(teamLevel.nativeElement.innerHTML).toContain(`Level: ${CONFIRMED_VOLLEY_REGISTRATION.level}`);
 
     const teamComposition = fixture.debugElement.query(By.css('.text-body'));
     expect(teamComposition.nativeElement.innerHTML).toContain('Team currently composed by:');
-    CONFIRMED_VOLLEY_REGISTRATION.teamInfo.members.forEach(member => expect(teamComposition.nativeElement.innerHTML).toContain(`${member.lastName.toUpperCase()} ${member.firstName}`));
+    CONFIRMED_VOLLEY_REGISTRATION.teamInfo?.members.forEach(member => expect(teamComposition.nativeElement.innerHTML).toContain(`${member.lastName.toUpperCase()} ${member.firstName}`));
   });
 
   it('should display correct buttons for confirmed registration', () => {
@@ -92,7 +93,7 @@ describe('SportCardComponent', () => {
     componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
     fixture.detectChanges();
 
-    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-light'));
+    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-outline-dark'));
     modifyButton.triggerEventHandler('click', null);
     fixture.detectChanges();
   });
@@ -105,7 +106,7 @@ describe('SportCardComponent', () => {
     componentRef.setInput('sport', CONFIRMED_VOLLEY_REGISTRATION);
     fixture.detectChanges();
 
-    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-danger'));
+    const modifyButton = fixture.debugElement.query(By.css('.btn.btn-outline-danger'));
     modifyButton.triggerEventHandler('click', null);
     fixture.detectChanges();
   });

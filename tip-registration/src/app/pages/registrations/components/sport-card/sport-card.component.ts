@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { RegistrationSummary } from '../../sports.model';
+import { RegistrationStatus, RegistrationSummary } from '../../sports.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sport-card.component.css'
 })
 export class SportCardComponent {
+
+  readonly MODIFIABLE_STATUSES = [RegistrationStatus.AWAITING_PAYMENT, RegistrationStatus.PENDING_APPROVAL, RegistrationStatus.REGISTERED];
 
   sport = input.required<RegistrationSummary>();
   unregister = output<void>();

@@ -1,4 +1,4 @@
-<div class="card text-bg-primary m-3">
+<div class="card border-primary text-primary m-3">
     <div class="card-header">
         <h3>Sports</h3>
     </div>
@@ -10,13 +10,13 @@
                     <li class="list-group-item list-group-item-primary">{{ sport }}</li>
                 } 
             </ul>
-            <div class="d-flex flex-row-reverse mt-2">
-                <a routerLink="/registrations" class="btn btn-dark">More info</a>
+            <div class="d-flex flex-row-reverse mt-3">
+                <a routerLink="/registrations" class="btn btn-outline-dark">More info</a>
             </div>
         } @else {
             <p class="card-text">You are not registered to any sports.</p>
-            <div class="d-flex flex-row-reverse mt-2">
-                <a routerLink="/registrations" class="btn btn-dark">Register</a>
+            <div class="d-flex flex-row-reverse mt-3">
+                <a routerLink="/registrations" class="btn btn-outline-dark">Register</a>
             </div>
         }        
     </div>

@@ -1,0 +1,17 @@
+    <div class="modal-header">
+        <h4 class="modal-title">Unregistration</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="dismissed.emit()"></button>
+    </div>
+    <div class="modal-body">
+        <p>You are about to remove your <strong>{{ sportRegistration().sportInfo.type }}</strong> registration.</p>
+        <p>Since this registration has already been paid, it will create a reimbursement request that must be approved by both sport administrators and registration team.</p> 
+        <p>You will be able to follow the progress of your reimbursement request on the Registrations page.</p>
+        <p>Please inform below the reason for the unregistration:</p>
+        <textarea class="form-control my-3" id="reimbursementReason" rows="3" [(ngModel)]="reimbursementReason"></textarea>
+        <p>The approval is not automatic, and the TIP staff might contact to ask for more information to be able to decide if the reimbursement must be approved or not.</p>
+        <p>Do you sure you want to proceed with the unregistration process?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="dismissed.emit()">Close</button>
+        <button type="button" class="btn btn-outline-danger" (click)="confirmed.emit(reimbursementReason)" [disabled]="!reimbursementReason">Proceed with unregistration</button>
+    </div>

@@ -1,0 +1,16 @@
+<div class="card m-2">
+    <div class="card-header d-flex align-items-center">
+        <span class="fs-5">{{ reimbursement().sport }}</span>
+        <span class="badge text-bg-dark ms-1">{{ reimbursement().status }}</span>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <div class="text-muted">
+            Requested on {{ reimbursement().creationDate | date:'short' }}
+            <br>
+            Last update on {{ reimbursement().lastUpdateDate | date:'short' }}
+        </div>
+        <div class="text-body mt-1">
+            Reason: {{ reimbursement().reason }}
+        </div>
+    </div>
+</div>

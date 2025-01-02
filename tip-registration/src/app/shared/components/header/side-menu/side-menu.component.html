@@ -5,19 +5,19 @@
 <div class="offcanvas-body">                        
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a class="nav-link" [class.active]="currentPage() === homeRoute" [routerLink]="'/' + homeRoute">
+            <a class="nav-link" [class.active]="homeSelected()" [routerLink]="'/' + homeRoute">
                 <i class="bi bi-house-door me-2"></i>
                 <span>Home</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [class.active]="currentPage() === registrationsRoute" [routerLink]="'/' + registrationsRoute">
+            <a class="nav-link" [class.active]="registrationSelected()" [routerLink]="'/' + registrationsRoute">
                 <i class="bi bi-dribbble me-2"></i>
                 <span>Registrations</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [class.active]="currentPage() === partyRoute" [routerLink]="'/' + partyRoute">
+            <a class="nav-link" [class.active]="partySelected()" [routerLink]="'/' + partyRoute">
                 <i class="bi bi-ticket-perforated me-2"></i>
                 <span>Party</span>
             </a>
@@ -29,7 +29,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link link-secondary">
+            <a class="nav-link" [class.active]="achievementsSelected()" [routerLink]="'/' + achievementsRoute">
                 <i class="bi bi-trophy me-2"></i>
                 <span>Achievements</span>
             </a>

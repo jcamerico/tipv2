@@ -1,4 +1,4 @@
-<div class="card m-2" [class.bg-warning]="sport().status === 'AWAITING PAYMENT'" [class.bg-info]="sport().status === 'PENDING APPROVAL'">
+<div class="card m-2">
     <div class="card-header d-flex align-items-center">
         <span class="fs-5">{{ sport().sportInfo.type }}</span>
         @if (sport().teamInfo; as teamInfo) {
@@ -46,23 +46,25 @@
                 }
             </ul>
         }
+        @if (sport().unregistration) {
+            <p class="text-body">This registration is linked to a reimbursement request.</p>
+        }
 
-        @if(sport().status !== 'CANCELLED' && sport().status !== 'REFUSED') {
+        @if(MODIFIABLE_STATUSES.includes(sport().status) && !sport().unregistration) {
             <div class="d-flex flex-row-reverse mt-auto">
-
                 @switch (sport().status) {
                     @case ('REGISTERED') {
-                        <a type="button" class="btn btn-danger" (click)="startUnregistration()">Unregister</a>
+                        <button type="button" class="btn btn-outline-danger" (click)="startUnregistration()" [disabled]="sport().unregistration">Unregister</button>
                     }
                     @case ('PENDING APPROVAL') {
-                        <a type="button" class="btn btn-secondary" (click)="cancel()">Cancel</a>
+                        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
                     }
                     @case ('AWAITING PAYMENT') {
-                        <a type="button" class="btn btn-primary" (click)="startPayment()">Proceed to payment</a>                
-                        <a type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</a>
+                        <button type="button" class="btn btn-outline-primary" (click)="startPayment()">Proceed to payment</button>                
+                        <button type="button" class="btn btn-outline-secondary me-2" (click)="cancel()">Cancel</button>
                     }
                 }
-                <a type="button" class="btn btn-light me-2" (click)="modify()">Modify</a>
+                <button type="button" class="btn btn-outline-dark me-2" (click)="modify()">Modify</button>
             </div>
         }
     </div>    
