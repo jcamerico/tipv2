@@ -1,0 +1,308 @@
+{
+  "uuid": "02bd6b78-2f14-453e-bedc-f56fe21ce5ec",
+  "lastMigration": 33,
+  "name": "TIPServer",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "1833d1c1-c53e-4f86-a03d-3a2240c257c5",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "summary",
+      "responses": [
+        {
+          "uuid": "cb708d98-fb30-4ce2-9323-772c62619fb6",
+          "body": "{\n  \"partyTickets\": {{faker 'number.int' 4}},\n  \"sports\": {{{someOf (array 'Volleyball' 'Beach Volleyball' 'E-sports' 'Boxing' 'Badminton' 'Soccer' 'Tennis') 0 2 true}}}\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "e99ecfa7-b823-49c5-aaab-eefafde3dc52",
+      "type": "http",
+      "documentation": "Returns list of achivements for a given user",
+      "method": "get",
+      "endpoint": "achievements",
+      "responses": [
+        {
+          "uuid": "31cef4f4-6bd7-4f1a-b1ee-813ac2c00a3f",
+          "body": "[\n  {\n    \"uid\": \"1\",\n    \"name\": \"Danseur 2024\",\n    \"description\": \"Tu as tout donné sur scène au TIP 2024! Bravo!\",\n    \"icon\": \"/assets/images/badges/dancer2024.webp\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": true,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7f6ac5fc-d463-43aa-b6a3-a78cd70b6c31",
+          "body": "Missing authorization header",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "352bf2cd-29b2-4da6-8a5a-782ba6215016",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "alerts",
+      "responses": [
+        {
+          "uuid": "fac8d8fc-379d-46dc-80a8-0e1875665526",
+          "body": "[\n  {{#repeat (faker 'number.int' 2)}}\n  {\n    \"type\": {{faker 'number.int' 2}},\n    \"message\": \"{{faker 'lorem.sentence'}}\"\n  }\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": true,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3018863e-cb0f-4c87-8c1c-3e7ae1bd9286",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "6d8ad779-6faa-4a22-8613-9c45ee53eacf",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "tickets",
+      "responses": [
+        {
+          "uuid": "218284e8-cc52-4f2a-84a5-36f6581b609d",
+          "body": "[\n  {{#repeat (faker 'number.int' 4)}}\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"drinks\": {{faker 'number.int' 10}},\n    \"party\": {{faker 'datatype.boolean'}},\n    \"owner\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\"\n  }\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d186d58b-fe47-435f-a2cd-fa7ea6f9807a",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "tickets",
+      "responses": [
+        {
+          "uuid": "ec95e3c1-138a-4c80-9d9d-4de90c5bf6e3",
+          "body": "{\n  \n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "1833d1c1-c53e-4f86-a03d-3a2240c257c5"
+    },
+    {
+      "type": "route",
+      "uuid": "e99ecfa7-b823-49c5-aaab-eefafde3dc52"
+    },
+    {
+      "type": "route",
+      "uuid": "352bf2cd-29b2-4da6-8a5a-782ba6215016"
+    },
+    {
+      "type": "route",
+      "uuid": "6d8ad779-6faa-4a22-8613-9c45ee53eacf"
+    },
+    {
+      "type": "route",
+      "uuid": "d186d58b-fe47-435f-a2cd-fa7ea6f9807a"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    },
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

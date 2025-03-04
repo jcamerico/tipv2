@@ -17,18 +17,18 @@
         @for (partyCode of partyCodes(); track partyCode.uid) {
             <div class="d-flex flex-column align-items-center mx-3">
                 <qrcode
-                  [qrdata]="partyCode.code"
+                  [qrdata]="partyCode.uid"
                   [allowEmptyString]="false"
-                  [ariaLabel]="'QR Code image with a party ticket for ' + partyCode.party?.owner"
+                  [ariaLabel]="'QR Code image with a party ticket for ' + partyCode.owner"
                   [elementType]="'canvas'"
                   [errorCorrectionLevel]="'M'"
                   [margin]="4"
                   [scale]="1"
-                  [title]="'Party ticket for ' + partyCode.party?.owner"
+                  [title]="'Party ticket for ' + partyCode.owner"
                   [width]="200"
                 ></qrcode>
                 <div class="text-center">
-                    {{partyCode.party?.owner}}
+                    {{partyCode.owner}}
                     @if (partyCode.drinks > 0) {
                         <br>
                         {{partyCode.drinks}} drink coupons
@@ -51,7 +51,7 @@
         @for (drinkCode of drinkCodes(); track drinkCode.uid) {
             <div class="d-flex flex-column align-items-center mx-3">
                 <qrcode
-                  [qrdata]="drinkCode.code"
+                  [qrdata]="drinkCode.uid"
                   [allowEmptyString]="false"
                   [ariaLabel]="'QR Code image with a drink ticket'"
                   [elementType]="'canvas'"
