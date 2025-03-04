@@ -1,1 +1,76 @@
-<p>party works!</p>
+<div class="container-fluid mt-2">
+
+    <div class="alert alert-info" role="alert">
+        <h4 >Welcome to the TIP party!</h4>
+        <p>Below you can find your party and drink tickets.</p>
+        <p>You can also send them to your email or purchase more tickets.</p>
+        <p>The party will take place on the 1st of January 2022 at 20:00 at the Dome de Paris (34 Bd Victor, 75015 Paris, France).</p>
+    </div>
+
+    <h3 class="my-3">
+        <i class="bi bi-disc me-2"></i>
+        Party tickets
+    </h3>
+    <p>Tickets below need to be presented at the entrance of the party venue. It is also possible to buy tickets at the venue.</p>
+    
+    <div class="d-flex flex-wrap">
+        @for (partyCode of partyCodes(); track partyCode.uid) {
+            <div class="d-flex flex-column align-items-center mx-3 party-ticket">
+                <qrcode
+                  [qrdata]="partyCode.uid"
+                  [allowEmptyString]="false"
+                  [ariaLabel]="'QR Code image with a party ticket for ' + partyCode.owner"
+                  [elementType]="'canvas'"
+                  [errorCorrectionLevel]="'M'"
+                  [margin]="4"
+                  [scale]="1"
+                  [title]="'Party ticket for ' + partyCode.owner"
+                  [width]="200"
+                ></qrcode>
+                <div class="text-center">
+                    {{partyCode.owner}}
+                    @if (partyCode.drinks > 0) {
+                        <br>
+                        {{partyCode.drinks}} drink coupons
+                    }
+                </div>
+                
+            </div>
+        } @empty {
+            <p>You did not purchase any party ticket.</p>
+        }
+    </div>
+
+    <h3 class="my-3">
+        <i class="bi bi-cup-straw me-2"></i>
+        Drink tickets
+    </h3>
+    <p>Present these QR codes at the entrance of the party venue to exchange it against drink coupons.</p>
+
+    <div class="d-flex flex-wrap">
+        @for (drinkCode of drinkCodes(); track drinkCode.uid) {
+            <div class="d-flex flex-column align-items-center mx-3 drink-ticket">
+                <qrcode
+                  [qrdata]="drinkCode.uid"
+                  [allowEmptyString]="false"
+                  [ariaLabel]="'QR Code image with a drink ticket'"
+                  [elementType]="'canvas'"
+                  [errorCorrectionLevel]="'M'"
+                  [margin]="4"
+                  [scale]="1"
+                  [title]="'Drink ticket'"
+                  [width]="200"
+                ></qrcode>
+                <p class="caption">{{drinkCode.drinks}} drink coupons </p>
+            </div>
+        } @empty {
+            <p>You did not purchase any drink ticket.</p>    
+        }
+    </div>
+
+    <div class="d-flex justify-content-center my-3">
+        <!-- Send it to any email or just to user's email? -->
+        <button type="button" class="btn btn-outline-secondary btn-lg m-1">Send tickets to email</button>
+        <button type="button" class="btn btn-outline-primary btn-lg m-1">Purchase party or drink tickets</button>
+    </div>
+</div>

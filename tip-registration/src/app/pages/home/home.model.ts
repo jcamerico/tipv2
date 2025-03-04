@@ -1,6 +1,11 @@
 export class HomeInfo {
-    sports: string[] = [];
-    partyTickets: number = 0;
+    sports: string[];
+    partyTickets: number;
+
+    constructor(sports: string[] = [], partyTickets: number = 0) {
+        this.sports = sports;
+        this.partyTickets = partyTickets;
+    }
 }
 
 export enum AlertType {
@@ -8,6 +13,12 @@ export enum AlertType {
 }
 
 export class Alert {
-    type: AlertType = AlertType.Info;
-    message: string = '';
+    type: AlertType;
+    message: string;
+
+    constructor(type: AlertType = AlertType.Info, message: string = '') {
+        this.type = type;
+        this.message = message;
+    }
+
 }
