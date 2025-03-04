@@ -15,7 +15,7 @@
     
     <div class="d-flex flex-wrap">
         @for (partyCode of partyCodes(); track partyCode.uid) {
-            <div class="d-flex flex-column align-items-center mx-3">
+            <div class="d-flex flex-column align-items-center mx-3 party-ticket">
                 <qrcode
                   [qrdata]="partyCode.uid"
                   [allowEmptyString]="false"
@@ -49,7 +49,7 @@
 
     <div class="d-flex flex-wrap">
         @for (drinkCode of drinkCodes(); track drinkCode.uid) {
-            <div class="d-flex flex-column align-items-center mx-3">
+            <div class="d-flex flex-column align-items-center mx-3 drink-ticket">
                 <qrcode
                   [qrdata]="drinkCode.uid"
                   [allowEmptyString]="false"

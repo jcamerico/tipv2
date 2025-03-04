@@ -1,6 +1,6 @@
 export type TicketCode = {
     uid: string;
     party: boolean;
-    owner: string;
+    owner?: string;
     drinks: number;
 }

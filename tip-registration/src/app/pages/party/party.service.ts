@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PartyService {
-  private readonly SERVER_URL = 'http://localhost:3001';
+  readonly SERVER_URL = 'http://localhost:3001';
 
   constructor(private http: HttpClient) { }
 
