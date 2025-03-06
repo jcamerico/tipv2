@@ -5,6 +5,7 @@ import { PartyService } from './party.service';
 import { of, Subject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { TicketCode } from './party.model';
+import { provideRouter } from '@angular/router';
 
 describe('PartyComponent', () => {
   let component: PartyComponent;
@@ -16,7 +17,8 @@ describe('PartyComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PartyComponent],
       providers: [
-        { provide: PartyService, useValue: partyService }
+        { provide: PartyService, useValue: partyService },
+        provideRouter([])
       ]
     })
       .compileComponents();
@@ -34,17 +36,8 @@ describe('PartyComponent', () => {
 
   it('should display separately party tickets and drink tickets', () => {
     ticketCodeSubject.next([
-      {
-        uid: '123',
-        party: true,
-        owner: 'John DOE',
-        drinks: 1,
-      },
-      {
-        uid: '124',
-        party: false,
-        drinks: 1,
-      }
+      new TicketCode(3, '1234', false, 'John DOE'),
+      new TicketCode(1, '1234')
     ]);
     fixture.detectChanges();
 
@@ -53,13 +46,7 @@ describe('PartyComponent', () => {
   });
 
   it('should display special message when no party ticket has been purchased', () => {
-    ticketCodeSubject.next([
-      {
-        uid: '124',
-        party: false,
-        drinks: 1,
-      }
-    ]);
+    ticketCodeSubject.next([new TicketCode(1, '1234')]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.queryAll(By.css('.party-ticket')).length).toBe(0);
@@ -68,14 +55,7 @@ describe('PartyComponent', () => {
   });
 
   it('should display special message when no drink ticket has been purchased', () => {
-    ticketCodeSubject.next([
-      {
-        uid: '123',
-        party: true,
-        owner: 'John DOE',
-        drinks: 1,
-      }
-    ]);
+    ticketCodeSubject.next([new TicketCode(3, '1234', false, 'John DOE')]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.queryAll(By.css('.party-ticket')).length).toBe(1);

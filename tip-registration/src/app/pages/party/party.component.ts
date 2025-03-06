@@ -2,12 +2,12 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 import { TicketCode } from './party.model';
 import { PartyService } from './party.service';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-party',
-  imports: [QRCodeComponent],
-  templateUrl: './party.component.html',
-  styleUrl: './party.component.css'
+  imports: [QRCodeComponent, RouterModule],
+  templateUrl: './party.component.html'
 })
 export class PartyComponent implements OnInit {
 

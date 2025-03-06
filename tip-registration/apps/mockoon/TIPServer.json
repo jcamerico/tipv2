@@ -180,7 +180,7 @@
       "responses": [
         {
           "uuid": "218284e8-cc52-4f2a-84a5-36f6581b609d",
-          "body": "[\n  {{#repeat (faker 'number.int' 4)}}\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"drinks\": {{faker 'number.int' 10}},\n    \"party\": {{faker 'datatype.boolean'}},\n    \"owner\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\"\n  }\n  {{/repeat}}\n]",
+          "body": "[\n  {{#repeat (int 1 3)}}\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"drinks\": {{multiply 5 (int 0 1)}},\n    \"party\": true,\n    \"owner\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n    \"scanned\": {{faker 'datatype.boolean'}}\n  }\n  {{/repeat}}\n  ,\n  {{#repeat (int 1 3)}}\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"drinks\": 5,\n    \"party\": false,\n    \"scanned\": {{faker 'datatype.boolean'}}\n  }\n  {{/repeat}}\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -203,17 +203,17 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "d186d58b-fe47-435f-a2cd-fa7ea6f9807a",
+      "uuid": "523758d4-6716-4641-ba72-ca593a8fd085",
       "type": "http",
       "documentation": "",
-      "method": "post",
-      "endpoint": "tickets",
+      "method": "get",
+      "endpoint": "coupons/:code",
       "responses": [
         {
-          "uuid": "ec95e3c1-138a-4c80-9d9d-4de90c5bf6e3",
-          "body": "{\n  \n}",
+          "uuid": "6ce88eb2-1afd-4201-9e2e-558cf7c7235c",
+          "body": "{\n  \"couponCode\": \"{{urlParam 'code'}}\",\n  \"description\": \"{{faker 'lorem.sentence'}}\",\n  \"reduction\": {{int 5 15}}\n}",
           "latency": 0,
-          "statusCode": 201,
+          "statusCode": 200,
           "label": "",
           "headers": [],
           "bodyType": "INLINE",
@@ -227,9 +227,28 @@
           "default": true,
           "crudKey": "id",
           "callbacks": []
+        },
+        {
+          "uuid": "c2d29231-8d5e-44c0-b843-06a9178ae0ff",
+          "body": "{\n  \"error\": \"Invalid code {{urlParam 'code'}}\"\n}",
+          "latency": 0,
+          "statusCode": 406,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "responseMode": null,
+      "responseMode": "RANDOM",
       "streamingMode": null,
       "streamingInterval": 0
     }
@@ -253,7 +272,7 @@
     },
     {
       "type": "route",
-      "uuid": "d186d58b-fe47-435f-a2cd-fa7ea6f9807a"
+      "uuid": "523758d4-6716-4641-ba72-ca593a8fd085"
     }
   ],
   "proxyMode": false,

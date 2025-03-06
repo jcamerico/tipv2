@@ -1,0 +1,48 @@
+<div class="container-fluid mt-2">
+    <h3 class="my-3">
+        <i class="bi bi-ticket me-2"></i>
+        Buy tickets
+    </h3>
+
+    <h4 class="text-center mt-4">Party tickets</h4>
+    <div class="d-flex justify-content-center flex-column align-items-center">
+    @for (item of partyTickets(); track $index) {
+        <div class="card border-primary w-50 text-center my-2 text-primary">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h5 class="card-text flex-grow-1">1x party ticket ({{ item.price }} €)</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="removePartyTicket($index)"></button>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <small>{{ item.ticket.owner }}, drink coupons: {{ item.ticket.drinks }}</small>
+                </div>                    
+            </div>
+        </div>
+    } @empty {
+        <p>You did not purchase any party ticket.</p>
+    }
+    </div>
+
+    <h4 class="text-center mt-4">Drink tickets</h4>
+    <div class="d-flex justify-content-center flex-column align-items-center">
+    @for (item of drinkTickets(); track $index) {
+        <div class="card border-secondary w-50 text-center my-2 text-secondary">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h5 class="card-text flex-grow-1">5x drink tickets ({{ item.price }} €)</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="removeDrinkTicket($index)"></button>
+                </div>
+            </div>
+        </div>
+    } @empty {
+        <p>You did not purchase any drink ticket.</p>
+    }
+    </div>
+    <h2 id="totalPrice" class="text-center p-4">Total: {{ totalPrice() }} €</h2>
+    <div class="d-flex justify-content-center my-4 px-1">
+        <button type="button" class="btn btn-outline-tertiary btn-lg ms-1" routerLink="/party">Cancel</button>
+        <button id="addPartyTicketButton" type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addPartyTicket()">Add party ticket</button>
+        <button id="addDrinkTicketButton" type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addDrinkTicket()">Add 5 drink tickets</button>        
+        <button type="button" class="btn btn-outline-primary btn-lg ms-1 me-1" (click)="checkout()">Checkout</button>
+    </div>
+</div>
