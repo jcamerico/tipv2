@@ -8,6 +8,6 @@ import { Alert } from '../../home.model';
   styleUrl: './alert.component.css'
 })
 export class AlertComponent {
-  alert = input.required<Alert>()
+  alert = input.required<Alert | undefined>()
 
 }
