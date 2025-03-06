@@ -32,8 +32,8 @@ export class PartyService {
   getBasketTickets(): { partyTickets: BasketTicket[], drinkTickets: BasketTicket[] } {
     const savedBasket = localStorage.getItem('ticketBasket');
     if (savedBasket) {
-      const basket = JSON.parse(savedBasket);
-      return basket as { partyTickets: BasketTicket[], drinkTickets: BasketTicket[] };
+      const basket = JSON.parse(savedBasket) as { partyTickets: BasketTicket[], drinkTickets: BasketTicket[] };
+      return basket;
     } else {
       return { partyTickets: [], drinkTickets: [] };
     }

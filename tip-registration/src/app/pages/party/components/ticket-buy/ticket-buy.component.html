@@ -38,11 +38,11 @@
         <p>You did not purchase any drink ticket.</p>
     }
     </div>
-    <h2 class="text-center p-4">Total: {{ totalPrice() }} €</h2>
+    <h2 id="totalPrice" class="text-center p-4">Total: {{ totalPrice() }} €</h2>
     <div class="d-flex justify-content-center my-4 px-1">
         <button type="button" class="btn btn-outline-tertiary btn-lg ms-1" routerLink="/party">Cancel</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addPartyTicket()">Add party ticket</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addDrinkTicket()">Add 5 drink tickets</button>        
+        <button id="addPartyTicketButton" type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addPartyTicket()">Add party ticket</button>
+        <button id="addDrinkTicketButton" type="button" class="btn btn-outline-secondary btn-lg ms-1" (click)="addDrinkTicket()">Add 5 drink tickets</button>        
         <button type="button" class="btn btn-outline-primary btn-lg ms-1 me-1" (click)="checkout()">Checkout</button>
     </div>
 </div>

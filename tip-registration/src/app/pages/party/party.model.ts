@@ -16,18 +16,6 @@ export class TicketCode {
             this.party = false;
         }
     }
-
-    computePrice(partyTicketPrice: number, drinkTicketPrice: number): number {
-        if (this.party) {
-            if (this.drinks > 0) {
-                return partyTicketPrice + drinkTicketPrice;
-            } else {
-                return partyTicketPrice;
-            }
-        } else {
-            return drinkTicketPrice;
-        }
-    }
 }
 
 export class BasketTicket {

@@ -48,9 +48,9 @@
         </ul>        
         <div class="d-flex w-50 mt-4">
             <input type="text" class="form-control" id="coupon" placeholder="Enter coupon code" name="coupon" [(ngModel)]="coupon">
-            <button class="btn btn-secondary btn-dark ms-2" (click)="applyCoupon()">Apply</button>
+            <button id="applyCouponButton" class="btn btn-secondary btn-dark ms-2" (click)="applyCoupon()">Apply</button>
         </div>
-        <h2 class="p-4 text-end">Total: {{ totalPrice() }} €</h2>
+        <h2 id="totalPrice" class="p-4 text-end">Total: {{ totalPrice() }} €</h2>
         <div class="text-end w-50 mt-3">
             <button type="button" class="btn btn-outline-tertiary btn-lg ms-1" routerLink="/party/new">Cancel</button>
             <button type="button" class="btn btn-outline-primary btn-lg ms-1">Proceed to payment</button>

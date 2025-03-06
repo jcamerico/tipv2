@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PartyTicketDialogComponent } from './party-ticket-dialog.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
-import { ComponentFactory } from '@angular/core';
 
 describe('PartyTicketDialogComponent', () => {
   let component: PartyTicketDialogComponent;
@@ -44,7 +43,7 @@ describe('PartyTicketDialogComponent', () => {
     expect(activeModal.dismiss).toHaveBeenCalled();
   });
 
-  it('should send ticket information when user clicks on the button', () => {
+  it('should send ticket information with drinks when user clicks on the button', () => {
     component.ticketOwner.set('John DOE');
     component.addDrinks.set(true);
     fixture.debugElement.query(By.css('.btn-primary')).triggerEventHandler('click', null);
@@ -59,7 +58,23 @@ describe('PartyTicketDialogComponent', () => {
         scanned: false
       }
     );
+  });
 
+  it('should send ticket information without drinks when user clicks on the button', () => {
+    component.ticketOwner.set('John DOE');
+    component.addDrinks.set(false);
+    fixture.debugElement.query(By.css('.btn-primary')).triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    expect(activeModal.close).toHaveBeenCalledWith(
+      {
+        uid: '',
+        party: true,
+        owner: 'John DOE',
+        drinks: 0,
+        scanned: false
+      }
+    );
   });
 
 });

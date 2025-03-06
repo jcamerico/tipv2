@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { PartyService } from './party.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { CouponReduction, TicketCode } from './party.model';
+import { BasketTicket, CouponReduction, TicketCode } from './party.model';
 
 describe('PartyService', () => {
   let service: PartyService;
@@ -62,6 +62,37 @@ describe('PartyService', () => {
       expect(price).toBe(5);
       done();
     });
+  });
+
+  it('should read basket tickets', () => {
+    const expectedBasket = {
+      partyTickets: [new BasketTicket(new TicketCode(0, '123', false, 'John DOE'), 25, 5)],
+      drinkTickets: [new BasketTicket(new TicketCode(5), 25, 5)]
+    };
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(expectedBasket));
+
+    const basket = service.getBasketTickets();
+    expect(JSON.stringify(basket)).toEqual(JSON.stringify(expectedBasket));
+  });
+
+  it('should return empty list of tickets when nothing is cached', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+
+    const basket = service.getBasketTickets();
+    expect(JSON.stringify(basket)).toEqual(JSON.stringify({ partyTickets: [], drinkTickets: [] }));
+  });
+
+  it('should save basket tickets', () => {
+    const spy = spyOn(localStorage, 'setItem');
+
+    const expectedBasket = {
+      partyTickets: [new BasketTicket(new TicketCode(3, '123', false, 'John DOE'), 25, 5)],
+      drinkTickets: [new BasketTicket(new TicketCode(5), 25, 5)]
+    };
+
+
+    service.saveBasketTickets(expectedBasket.partyTickets, expectedBasket.drinkTickets);
+    expect(spy).toHaveBeenCalledWith('ticketBasket', JSON.stringify(expectedBasket));
   });
 
 });
