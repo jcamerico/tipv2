@@ -65,11 +65,13 @@ describe('PartyService', () => {
   });
 
   it('should read basket tickets', () => {
+    const partyTicket = new TicketCode(0, '123', false, 'John DOE');
+    const drinkTicket = new TicketCode(5);
     const expectedBasket = {
-      partyTickets: [new BasketTicket(new TicketCode(0, '123', false, 'John DOE'), 25, 5)],
-      drinkTickets: [new BasketTicket(new TicketCode(5), 25, 5)]
+      partyTickets: [new BasketTicket(partyTicket, 25, 5)],
+      drinkTickets: [new BasketTicket(drinkTicket, 25, 5)]
     };
-    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(expectedBasket));
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ partyTickets: [partyTicket], drinkTickets: [drinkTicket] }));
 
     const basket = service.getBasketTickets();
     expect(JSON.stringify(basket)).toEqual(JSON.stringify(expectedBasket));
@@ -84,14 +86,12 @@ describe('PartyService', () => {
 
   it('should save basket tickets', () => {
     const spy = spyOn(localStorage, 'setItem');
-
-    const expectedBasket = {
-      partyTickets: [new BasketTicket(new TicketCode(3, '123', false, 'John DOE'), 25, 5)],
-      drinkTickets: [new BasketTicket(new TicketCode(5), 25, 5)]
-    };
+    const partyTicket = new TicketCode(0, '123', false, 'John DOE');
+    const drinkTicket = new TicketCode(5);
+    const expectedBasket = { partyTickets: [partyTicket], drinkTickets: [drinkTicket] };
 
 
-    service.saveBasketTickets(expectedBasket.partyTickets, expectedBasket.drinkTickets);
+    service.saveBasketTickets([new BasketTicket(partyTicket, 25, 5)], [new BasketTicket(drinkTicket, 25, 5)]);
     expect(spy).toHaveBeenCalledWith('ticketBasket', JSON.stringify(expectedBasket));
   });
 

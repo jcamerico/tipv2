@@ -251,6 +251,68 @@
       "responseMode": "RANDOM",
       "streamingMode": null,
       "streamingInterval": 0
+    },
+    {
+      "uuid": "838c9e96-88f3-43de-aa0a-c41f18dbc1dc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "registrations",
+      "responses": [
+        {
+          "uuid": "a248f237-370a-4c1b-be0b-83d283ea3497",
+          "body": "[\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"unregistration\": {{faker 'datatype.boolean'}},\n    \"status\": \"{{oneOf (array 'REGISTERED' 'PENDING APPROVAL' 'AWAITING PAYMENT' 'REFUSED' 'CANCELLED BY USER' 'CANCELLED WITH REIMBURSEMENT')}}\",\n    \"sportInfo\": {\n      \"type\": \"{{oneOf (array 'Volleyball 2.43m' 'Beach Volleyball 2.43m')}}\",\n      \"dates\": [\n        {{#repeat 2}}\n        {\n          \"startTime\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\",\n          \"endTime\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\"\n        }\n        {{/repeat}}\n      ],\n      \"organizers\": [\"Contrepied PARIS\"],\n      \"contacts\": [\"tip@contrepied.com\"]\n    },\n    \"level\": \"B\",\n    \"teamInfo\": {\n      \"complete\": {{faker 'datatype.boolean'}},\n      \"name\": \"{{lorem 2}}\",\n      \"code\": \"{{lorem 1}}\",\n      \"members\": [\n        {\n          \"firstName\": \"{{faker 'person.firstName'}}\",\n          \"lastName\": \"{{faker 'person.lastName'}}\",\n          \"teamCaptain\": true\n        },\n        {{#repeat (int 1 5)}}\n        {\n          \"firstName\": \"{{faker 'person.firstName'}}\",\n          \"lastName\": \"{{faker 'person.lastName'}}\",\n          \"teamCaptain\": false\n        }\n        {{/repeat}}\n      ]\n    }\n  },\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"unregistration\": {{faker 'datatype.boolean'}},\n    \"status\": \"{{oneOf (array 'REGISTERED' 'PENDING APPROVAL' 'AWAITING PAYMENT' 'REFUSED' 'CANCELLED BY USER' 'CANCELLED WITH REIMBURSEMENT')}}\",\n    \"sportInfo\": {\n      \"type\": \"E-sports\",\n      \"dates\": [\n        {{#repeat 2}}\n        {\n          \"startTime\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\",\n          \"endTime\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\"\n        }\n        {{/repeat}}\n      ],\n      \"organizers\": [\"Next Gaymer Paris\"],\n      \"contacts\": [\"next@gaymer.com\"]\n    },\n    \"level\": \"{{oneOf (array 'Beginner' 'Intermediate' 'Advanced')}}\",\n    \"events\": {{{someOf (array 'League of Legends' 'Overwatch' 'Valorant') 1 3 true}}}\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f21df00f-2293-4a21-8172-48e62038f014",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "reimbursements",
+      "responses": [
+        {
+          "uuid": "972679b0-f342-4a26-b88c-fc55bd97f224",
+          "body": "[\n  {\n    \"uid\": \"{{faker 'string.uuid'}}\",\n    \"sport\": \"{{oneOf (array 'Volleyball 2.43m' 'Beach Volleyball 2.43m' 'E-sports')}}\",\n    \"sportUid\": \"{{faker 'string.uuid'}}\",\n    \"creationDate\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\",\n    \"lastUpdateDate\": \"{{date '2020-11-20' '2020-11-25' \"yyyy-MM-dd'T'HH:mm:ss\"}}\",\n    \"type\": {{int 0 1}},\n    \"status\": \"{{oneOf (array 'OPEN' 'APPROVED BY SPORT' 'AWAITING REIMBURSEMENT' 'REIMBURSED' 'REFUSED')}}\",\n    \"reason\": \"Injury\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
   ],
   "rootChildren": [
@@ -273,6 +335,14 @@
     {
       "type": "route",
       "uuid": "523758d4-6716-4641-ba72-ca593a8fd085"
+    },
+    {
+      "type": "route",
+      "uuid": "838c9e96-88f3-43de-aa0a-c41f18dbc1dc"
+    },
+    {
+      "type": "route",
+      "uuid": "f21df00f-2293-4a21-8172-48e62038f014"
     }
   ],
   "proxyMode": false,

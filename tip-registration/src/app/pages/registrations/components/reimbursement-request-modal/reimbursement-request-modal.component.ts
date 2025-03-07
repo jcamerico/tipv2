@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-reimbursement-request-modal',
   imports: [FormsModule],
-  templateUrl: './reimbursement-request-modal.component.html',
-  styleUrl: './reimbursement-request-modal.component.css'
+  templateUrl: './reimbursement-request-modal.component.html'
 })
 export class ReimbursementRequestModalComponent {
 

@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-reimbursement-card',
   imports: [CommonModule],
-  templateUrl: './reimbursement-card.component.html',
-  styleUrl: './reimbursement-card.component.css'
+  templateUrl: './reimbursement-card.component.html'
 })
 export class ReimbursementCardComponent {
 

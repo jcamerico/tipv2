@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PartyService {
   readonly SERVER_URL = 'http://localhost:3001';
+  private readonly DRINK_PRICE = 5;
+  private readonly PARTY_PRICE = 25;
 
   constructor(private http: HttpClient) { }
 
@@ -21,25 +23,30 @@ export class PartyService {
 
   getPartyTicketPrice(): Observable<number> {
     // FIXME: Prices should come from backend, modifiable from an admin interface
-    return of(25);
+    return of(this.PARTY_PRICE);
   }
 
   getDrinkTicketPrice(): Observable<number> {
     // FIXME: Prices should come from backend, modifiable from an admin interface
-    return of(5);
+    return of(this.DRINK_PRICE);
   }
 
   getBasketTickets(): { partyTickets: BasketTicket[], drinkTickets: BasketTicket[] } {
     const savedBasket = localStorage.getItem('ticketBasket');
     if (savedBasket) {
-      const basket = JSON.parse(savedBasket) as { partyTickets: BasketTicket[], drinkTickets: BasketTicket[] };
-      return basket;
+      const basket = JSON.parse(savedBasket) as { partyTickets: TicketCode[], drinkTickets: TicketCode[] };
+      return {
+        partyTickets: basket.partyTickets.map(ticket => new BasketTicket(ticket, this.PARTY_PRICE, this.DRINK_PRICE)),
+        drinkTickets: basket.drinkTickets.map(ticket => new BasketTicket(ticket, this.PARTY_PRICE, this.DRINK_PRICE))
+      };
     } else {
       return { partyTickets: [], drinkTickets: [] };
     }
   }
 
   saveBasketTickets(partyTickets: BasketTicket[], drinkTickets: BasketTicket[]): void {
-    localStorage.setItem('ticketBasket', JSON.stringify({ partyTickets, drinkTickets }));
+    const partyTicketsCodes = partyTickets.map(ticket => ticket.ticket);
+    const drinkTicketsCodes = drinkTickets.map(ticket => ticket.ticket);
+    localStorage.setItem('ticketBasket', JSON.stringify({ partyTickets: partyTicketsCodes, drinkTickets: drinkTicketsCodes }));
   }
 }

@@ -4,8 +4,7 @@ import { RegistrationSummary } from '../../sports.model';
 @Component({
   selector: 'app-user-cancellation-modal',
   imports: [],
-  templateUrl: './user-cancellation-modal.component.html',
-  styleUrl: './user-cancellation-modal.component.css'
+  templateUrl: './user-cancellation-modal.component.html'
 })
 export class UserCancellationModalComponent {
 

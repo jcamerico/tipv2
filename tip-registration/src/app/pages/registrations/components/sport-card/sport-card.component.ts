@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-sport-card',
   imports: [CommonModule],
-  templateUrl: './sport-card.component.html',
-  styleUrl: './sport-card.component.css'
+  templateUrl: './sport-card.component.html'
 })
 export class SportCardComponent {
 
